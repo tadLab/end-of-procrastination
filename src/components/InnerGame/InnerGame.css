@@ -1,0 +1,290 @@
+.inner-game {
+  background: #1a1a2e;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.inner-game-header {
+  margin-bottom: 20px;
+}
+
+.inner-game-header h2 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.inner-game-subtitle {
+  margin: 0;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.inner-game-explanation {
+  background: #0f0f1a;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-left: 4px solid #06b6d4;
+}
+
+.inner-game-explanation h3 {
+  margin: 0 0 8px 0;
+  color: #06b6d4;
+  font-size: 1rem;
+}
+
+.inner-game-explanation p {
+  margin: 0 0 16px 0;
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.examples h4 {
+  margin: 0 0 8px 0;
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.example-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.example-row .original {
+  color: #ef4444;
+}
+
+.example-row .arrow {
+  color: #666;
+}
+
+.example-row .reframed {
+  color: #22c55e;
+}
+
+.add-reframe {
+  background: #0f0f1a;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.add-reframe h3 {
+  margin: 0 0 16px 0;
+  color: #06b6d4;
+  font-size: 1.1rem;
+}
+
+.reframe-field {
+  margin-bottom: 16px;
+}
+
+.reframe-field label {
+  display: block;
+  color: #888;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.reframe-field input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #16213e;
+  border-radius: 6px;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.reframe-field input:focus {
+  outline: none;
+  border-color: #06b6d4;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 12px;
+  background: #06b6d4;
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background: #0891b2;
+}
+
+.reframes-list h3 {
+  margin: 0 0 16px 0;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.reframe-card {
+  background: #0f0f1a;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-left: 4px solid #06b6d4;
+}
+
+.reframe-situation {
+  margin-bottom: 12px;
+}
+
+.reframe-situation .label {
+  color: #888;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.reframe-situation .text {
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.reframe-transformation {
+  background: #1a1a2e;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.old-story,
+.new-story {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.story-label {
+  color: #666;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.story-text {
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.story-text.negative {
+  color: #ef4444;
+}
+
+.story-text.positive {
+  color: #22c55e;
+}
+
+.transform-arrow {
+  display: block;
+  text-align: center;
+  color: #06b6d4;
+  font-size: 1.2rem;
+  margin: 8px 0;
+}
+
+.reframe-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.reframe-actions button {
+  padding: 6px 12px;
+  background: #16213e;
+  border: none;
+  border-radius: 4px;
+  color: #888;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reframe-actions button:hover {
+  background: #1a2744;
+  color: #fff;
+}
+
+.reframe-actions button.delete:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.reframe-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reframe-edit input {
+  padding: 10px;
+  border: 2px solid #16213e;
+  border-radius: 6px;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.reframe-edit input:focus {
+  outline: none;
+  border-color: #06b6d4;
+}
+
+.reframe-edit button {
+  align-self: flex-end;
+  padding: 8px 16px;
+  background: #06b6d4;
+  border: none;
+  border-radius: 6px;
+  color: #000;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.empty-state p {
+  margin: 0 0 8px 0;
+}
+
+.empty-state .hint {
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.inner-game-quote {
+  margin-top: 24px;
+  padding: 20px;
+  background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+  border-radius: 8px;
+  text-align: center;
+  border-left: 4px solid #06b6d4;
+}
+
+.inner-game-quote p {
+  color: #fff;
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0 0 8px 0;
+}
+
+.inner-game-quote span {
+  color: #888;
+  font-size: 0.875rem;
+}
