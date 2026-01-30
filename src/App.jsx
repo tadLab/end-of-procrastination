@@ -1,171 +1,96 @@
-import { useState, useRef } from 'react';
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { HabitTracker } from './components/HabitTracker/HabitTracker';
-import { TodoAll } from './components/TodoAll/TodoAll';
-import { FlowSheet } from './components/FlowSheet/FlowSheet';
-import { HamsterRestart } from './components/HamsterRestart/HamsterRestart';
-import { MeetingWithYourself } from './components/MeetingWithYourself/MeetingWithYourself';
-import { InnerGame } from './components/InnerGame/InnerGame';
-import { exportToJSON, importFromJSON } from './utils/storage';
+import { getTodayKey } from './utils/dateHelpers';
+import { format } from 'date-fns';
+import { Habits } from './components/Habits/Habits';
+import { Priorities } from './components/Priorities/Priorities';
+import { TodoList } from './components/TodoList/TodoList';
+import { CalendarPlaceholder } from './components/CalendarPlaceholder/CalendarPlaceholder';
 import './App.css';
 
+const PRIORITY_ORDER = { high: 0, mid: 1, low: 2 };
+
+const DEFAULT_DAY = {
+  tasks: [],
+  habits: {},
+};
+
+function deriveTopPriorities(tasks) {
+  return tasks
+    .filter(t => !t.completed)
+    .sort((a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority])
+    .slice(0, 3);
+}
+
 function App() {
-  const [activeSection, setActiveSection] = useState('habits');
-  const fileInputRef = useRef(null);
+  const todayKey = getTodayKey();
+  const [dayData, setDayData] = useLocalStorage('dayData', {});
+  const [habitDefinitions, setHabitDefinitions] = useLocalStorage('habitDefinitions', []);
 
-  // Habit Tracker State
-  const [habits, setHabits] = useLocalStorage('habits', []);
-  const [habitLog, setHabitLog] = useLocalStorage('habitLog', {});
+  const today = dayData[todayKey] || DEFAULT_DAY;
 
-  // Todo All State
-  const [tasks, setTasks] = useLocalStorage('tasks', []);
-  const [connections, setConnections] = useLocalStorage('connections', []);
-
-  // Flow Sheet State
-  const [flowEntries, setFlowEntries] = useLocalStorage('flowEntries', {});
-
-  // Hamster Restart State
-  const [hamsters, setHamsters] = useLocalStorage('hamsters', []);
-
-  // Meeting with Yourself State
-  const [meetings, setMeetings] = useLocalStorage('meetings', {});
-
-  // Inner Game State
-  const [reframes, setReframes] = useLocalStorage('reframes', []);
-
-  const handleExport = () => {
-    const data = {
-      habits,
-      habitLog,
-      tasks,
-      connections,
-      flowEntries,
-      hamsters,
-      meetings,
-      reframes,
-      exportedAt: new Date().toISOString()
-    };
-    exportToJSON(data, 'end-of-procrastination-data.json');
+  const updateToday = (patch) => {
+    setDayData(prev => ({
+      ...prev,
+      [todayKey]: { ...DEFAULT_DAY, ...prev[todayKey], ...patch },
+    }));
   };
 
-  const handleImport = async (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      try {
-        const data = await importFromJSON(file);
-        if (data.habits) setHabits(data.habits);
-        if (data.habitLog) setHabitLog(data.habitLog);
-        if (data.tasks) setTasks(data.tasks);
-        if (data.connections) setConnections(data.connections);
-        if (data.flowEntries) setFlowEntries(data.flowEntries);
-        if (data.hamsters) setHamsters(data.hamsters);
-        if (data.meetings) setMeetings(data.meetings);
-        if (data.reframes) setReframes(data.reframes);
-        alert('Data imported successfully!');
-      } catch (error) {
-        alert('Failed to import: ' + error.message);
-      }
-    }
-    e.target.value = '';
+  const handleHabitToggle = (habitId) => {
+    const currentHabits = today.habits;
+    updateToday({ habits: { ...currentHabits, [habitId]: !currentHabits[habitId] } });
   };
 
-  const sections = [
-    { id: 'habits', label: 'Habits' },
-    { id: 'todos', label: 'To Do All' },
-    { id: 'flow', label: 'Flow Sheet' },
-    { id: 'hamster', label: 'Hamster Restart' },
-    { id: 'meeting', label: 'Meeting' },
-    { id: 'innergame', label: 'Inner Game' },
-  ];
+  const handleTaskToggle = (taskId) => {
+    const updated = today.tasks.map(t =>
+      t.id === taskId ? { ...t, completed: !t.completed } : t
+    );
+    updateToday({ tasks: updated });
+  };
+
+  const topPriorities = deriveTopPriorities(today.tasks);
+  const now = new Date();
 
   return (
     <div className="app">
+      <div className="app-noise" />
       <header className="app-header">
-        <div className="app-title">
-          <h1>End of Procrastination</h1>
-          <span className="credits">Inspired by Petr Ludwig's book</span>
-        </div>
-        <nav className="main-nav">
-          {sections.map(section => (
-            <button
-              key={section.id}
-              className={activeSection === section.id ? 'active' : ''}
-              onClick={() => setActiveSection(section.id)}
-            >
-              {section.label}
-            </button>
-          ))}
-        </nav>
-        <div className="data-actions">
-          <button onClick={handleExport} className="export-btn">
-            Export
-          </button>
-          <button onClick={() => fileInputRef.current?.click()} className="import-btn">
-            Import
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".json"
-            onChange={handleImport}
-            style={{ display: 'none' }}
-          />
+        <div className="greeting">
+          <h1>{format(now, 'EEEE')}</h1>
+          <time className="today-date">{format(now, 'MMMM d, yyyy')}</time>
         </div>
       </header>
 
-      <main className="app-main">
-        {activeSection === 'habits' && (
-          <HabitTracker
-            habits={habits}
-            setHabits={setHabits}
-            habitLog={habitLog}
-            setHabitLog={setHabitLog}
+      <main className="dashboard-grid">
+        <section className="card card-focus">
+          <Priorities
+            topPriorities={topPriorities}
+            onToggle={handleTaskToggle}
           />
-        )}
+        </section>
 
-        {activeSection === 'todos' && (
-          <TodoAll
-            tasks={tasks}
-            setTasks={setTasks}
-            connections={connections}
-            setConnections={setConnections}
+        <section className="card card-habits">
+          <Habits
+            habits={today.habits}
+            onToggle={handleHabitToggle}
+            habitDefinitions={habitDefinitions}
+            onUpdateDefinitions={setHabitDefinitions}
           />
-        )}
+        </section>
 
-        {activeSection === 'flow' && (
-          <FlowSheet
-            flowEntries={flowEntries}
-            setFlowEntries={setFlowEntries}
+        <section className="card card-tasks">
+          <TodoList
+            tasks={today.tasks}
+            onUpdate={(tasks) => updateToday({ tasks })}
           />
-        )}
+        </section>
 
-        {activeSection === 'hamster' && (
-          <HamsterRestart
-            hamsters={hamsters}
-            setHamsters={setHamsters}
-          />
-        )}
-
-        {activeSection === 'meeting' && (
-          <MeetingWithYourself
-            meetings={meetings}
-            setMeetings={setMeetings}
-          />
-        )}
-
-        {activeSection === 'innergame' && (
-          <InnerGame
-            reframes={reframes}
-            setReframes={setReframes}
-          />
-        )}
+        <section className="card card-calendar">
+          <CalendarPlaceholder />
+        </section>
       </main>
 
       <footer className="app-footer">
-        <p>
-          Based on <strong>"The End of Procrastination"</strong> by <strong>Petr Ludwig</strong>
-        </p>
-        <p className="footer-note">Your data is stored locally in your browser</p>
+        <p>Stored locally on this device</p>
       </footer>
     </div>
   );

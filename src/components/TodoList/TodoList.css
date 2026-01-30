@@ -1,0 +1,160 @@
+.todolist-section {
+  padding: 0;
+}
+
+.todolist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.todolist-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.todolist-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.todolist-item.priority-high {
+  border-left-color: #ff453a;
+}
+
+.todolist-item.priority-mid {
+  border-left-color: #007aff;
+}
+
+.todolist-item.priority-low {
+  border-left-color: #30d158;
+}
+
+.todolist-item span {
+  flex: 1;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.2s;
+}
+
+.todolist-item span.completed {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.todolist-item .delete-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.todolist-item .delete-btn:hover {
+  color: #ff453a;
+}
+
+.todolist-add {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.priority-selector {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.priority-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.priority-dot.dot-high {
+  background: #ff453a;
+}
+
+.priority-dot.dot-mid {
+  background: #007aff;
+}
+
+.priority-dot.dot-low {
+  background: #30d158;
+}
+
+.priority-dot.active {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.priority-dot:hover {
+  transform: scale(1.15);
+}
+
+.todolist-add input[type="text"] {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  transition: background 0.2s;
+}
+
+.todolist-add input[type="text"]:focus {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.todolist-add input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.todolist-add input[type="text"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.todolist-add > button {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #007aff, #5856d6);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.todolist-add > button:hover {
+  opacity: 0.9;
+}
+
+.todolist-add > button:active {
+  transform: scale(0.97);
+}
+
+.todolist-add > button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
