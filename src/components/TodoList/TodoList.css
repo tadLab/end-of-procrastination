@@ -12,10 +12,14 @@
   margin-bottom: 10px;
 }
 
+.todolist-item-wrapper {
+  animation: taskSlideIn 0.25s ease-out;
+}
+
 .todolist-item {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   padding: 13px 16px;
   background: rgba(255, 255, 255, 0.06);
   transition: background 0.2s ease;
@@ -38,16 +42,58 @@
   border-left-color: #30d158;
 }
 
+.todolist-item.overdue {
+  background: rgba(255, 69, 58, 0.08);
+}
+
 .todolist-item span {
   flex: 1;
   font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.9);
-  transition: color 0.2s;
+  transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 .todolist-item span.completed {
   text-decoration: line-through;
   color: rgba(255, 255, 255, 0.35);
+}
+
+.subtask-progress {
+  flex: 0 0 auto !important;
+  font-size: 0.75rem !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-weight: 500;
+}
+
+.overdue-badge {
+  flex: 0 0 auto !important;
+  font-size: 0.7rem !important;
+  font-weight: 600;
+  color: #ff453a !important;
+  background: rgba(255, 69, 58, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.due-badge {
+  flex: 0 0 auto !important;
+  font-size: 0.7rem !important;
+  color: rgba(255, 255, 255, 0.35) !important;
+  font-weight: 500;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 2px 4px;
+  transition: color 0.2s;
+}
+
+.expand-btn:hover {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .todolist-item .delete-btn {
@@ -59,16 +105,86 @@
   padding: 0 2px;
   line-height: 1;
   transition: color 0.2s;
+  flex-shrink: 0;
 }
 
 .todolist-item .delete-btn:hover {
   color: #ff453a;
 }
 
+/* Subtasks */
+.subtask-list {
+  padding: 4px 16px 8px 40px;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.subtask-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.subtask-item span {
+  flex: 1;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.2s;
+}
+
+.subtask-item span.completed {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.subtask-item .delete-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.subtask-item .delete-btn:hover {
+  color: #ff453a;
+}
+
+.subtask-add input {
+  width: 100%;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 2px;
+}
+
+.subtask-add input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* Add task row */
 .todolist-add {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .priority-selector {
@@ -110,6 +226,7 @@
 
 .todolist-add input[type="text"] {
   flex: 1;
+  min-width: 0;
   padding: 12px 16px;
   border: none;
   border-radius: 12px;
@@ -133,6 +250,23 @@
   cursor: not-allowed;
 }
 
+.due-date-input {
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  outline: none;
+  width: 130px;
+  flex-shrink: 0;
+  color-scheme: dark;
+}
+
+.due-date-input:focus {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .todolist-add > button {
   padding: 12px 20px;
   background: linear-gradient(135deg, #007aff, #5856d6);
@@ -143,6 +277,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.1s;
+  flex-shrink: 0;
 }
 
 .todolist-add > button:hover {
@@ -157,4 +292,25 @@
   opacity: 0.4;
   cursor: not-allowed;
   transform: none;
+}
+
+/* Animations */
+@keyframes taskSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+input[type="checkbox"]:checked {
+  animation: checkPulse 0.2s ease;
+}
+
+@keyframes checkPulse {
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }

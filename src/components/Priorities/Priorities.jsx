@@ -1,3 +1,4 @@
+import { isBefore, parseISO, startOfDay } from 'date-fns';
 import './Priorities.css';
 
 const PRIORITY_COLORS = {
@@ -5,6 +6,11 @@ const PRIORITY_COLORS = {
   mid: '#007aff',
   low: '#30d158',
 };
+
+function isOverdue(task) {
+  if (!task.dueDate || task.completed) return false;
+  return isBefore(parseISO(task.dueDate), startOfDay(new Date()));
+}
 
 export function Priorities({ topPriorities, onToggle }) {
   const slots = [0, 1, 2];
@@ -23,6 +29,9 @@ export function Priorities({ topPriorities, onToggle }) {
               </div>
             );
           }
+          const subs = task.subtasks || [];
+          const subsDone = subs.filter(s => s.completed).length;
+          const overdue = isOverdue(task);
           return (
             <div key={task.id} className="priority-item">
               <span
@@ -37,6 +46,10 @@ export function Priorities({ topPriorities, onToggle }) {
               <span className={`priority-title ${task.completed ? 'completed' : ''}`}>
                 {task.title}
               </span>
+              {subs.length > 0 && (
+                <span className="priority-subtask-count">{subsDone}/{subs.length}</span>
+              )}
+              {overdue && <span className="priority-overdue">Overdue</span>}
             </div>
           );
         })}

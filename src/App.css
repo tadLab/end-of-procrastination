@@ -22,27 +22,10 @@
   position: relative;
   z-index: 1;
   padding: 48px 24px 8px;
-  max-width: 720px;
+  max-width: 1080px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
-}
-
-.greeting h1 {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  letter-spacing: -0.03em;
-}
-
-.today-date {
-  display: block;
-  margin-top: 2px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.45);
-  letter-spacing: -0.01em;
 }
 
 /* Dashboard grid */
@@ -50,7 +33,7 @@
   flex: 1;
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: 1080px;
   width: 100%;
   margin: 0 auto;
   padding: 20px 24px 40px;
@@ -97,10 +80,38 @@
   background: rgba(100, 120, 255, 0.12);
 }
 
-.card-calendar {
+.card-stats {
   grid-column: 1 / -1;
-  padding: 0;
   background: rgba(255, 255, 255, 0.06);
+}
+
+.card-review {
+  grid-column: 1 / -1;
+  background: rgba(168, 130, 255, 0.12);
+}
+
+/* Recurring toggle */
+.recurring-toggle-btn {
+  display: block;
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.2s;
+}
+
+.recurring-toggle-btn:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.recurring-panel {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .app-footer {
@@ -130,16 +141,13 @@
   }
 
   .card-focus,
-  .card-calendar {
+  .card-stats,
+  .card-review {
     grid-column: 1;
   }
 
   .card {
     border-radius: 14px;
     padding: 16px 18px;
-  }
-
-  .card-calendar {
-    padding: 0;
   }
 }

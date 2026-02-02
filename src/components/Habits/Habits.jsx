@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Habits.css';
 
-export function Habits({ habits, onToggle, habitDefinitions, onUpdateDefinitions }) {
+export function Habits({ habits, onToggle, habitDefinitions, onUpdateDefinitions, disableManage = false }) {
   const [managing, setManaging] = useState(false);
   const [newHabit, setNewHabit] = useState('');
 
@@ -25,12 +25,14 @@ export function Habits({ habits, onToggle, habitDefinitions, onUpdateDefinitions
     <section className="habits-section">
       <div className="section-header">
         <h2>Habits</h2>
-        <button
-          className="manage-btn"
-          onClick={() => setManaging(!managing)}
-        >
-          {managing ? 'Done' : 'Manage'}
-        </button>
+        {!disableManage && (
+          <button
+            className="manage-btn"
+            onClick={() => setManaging(!managing)}
+          >
+            {managing ? 'Done' : 'Manage'}
+          </button>
+        )}
       </div>
 
       {managing ? (

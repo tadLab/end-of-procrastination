@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import './EveningReview.css';
 
-export function EveningReview({ priorities, habits, habitDefinitions, review, onUpdateReview }) {
+export function EveningReview({ tasks, habits, habitDefinitions, review, onUpdateReview }) {
   const [open, setOpen] = useState(false);
 
-  const priorityCount = priorities.filter(p => p.completed && p.title.trim()).length;
-  const priorityTotal = priorities.filter(p => p.title.trim()).length;
-
+  const taskCount = tasks.filter(t => t.completed).length;
+  const taskTotal = tasks.length;
   const habitCount = habitDefinitions.reduce((n, h) => n + (habits[h.id] ? 1 : 0), 0);
   const habitTotal = habitDefinitions.length;
 
@@ -20,7 +19,7 @@ export function EveningReview({ priorities, habits, habitDefinitions, review, on
       {open && (
         <div className="review-content">
           <p className="review-summary">
-            Priorities: {priorityCount}/{priorityTotal} &middot; Habits: {habitCount}/{habitTotal}
+            Tasks: {taskCount}/{taskTotal} &middot; Habits: {habitCount}/{habitTotal}
           </p>
 
           <div className="review-field">

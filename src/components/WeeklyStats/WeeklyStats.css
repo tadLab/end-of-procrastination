@@ -1,0 +1,77 @@
+.weekly-stats {
+  padding: 0;
+}
+
+.stats-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.stats-chart svg {
+  max-width: 320px;
+}
+
+.stats-legend {
+  display: flex;
+  gap: 16px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.legend-tasks {
+  background: rgba(100, 120, 255, 0.7);
+}
+
+.legend-habits {
+  background: rgba(45, 210, 180, 0.7);
+}
+
+.streaks-list h3 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.streaks-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.streak-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+}
+
+.streak-name {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.streak-count {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #30d158;
+}

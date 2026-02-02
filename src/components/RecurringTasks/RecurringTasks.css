@@ -1,0 +1,132 @@
+.recurring-manage {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.recurring-empty {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.recurring-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.recurring-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.recurring-dot.dot-high { background: #ff453a; }
+.recurring-dot.dot-mid { background: #007aff; }
+.recurring-dot.dot-low { background: #30d158; }
+
+.recurring-title {
+  flex: 1;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.recurring-freq {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+}
+
+.recurring-remove {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.recurring-remove:hover {
+  color: #ff453a;
+}
+
+.recurring-add {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recurring-add input[type="text"] {
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.recurring-add input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.recurring-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.recurring-priority-sel {
+  display: flex;
+  gap: 4px;
+}
+
+.recurring-priority-sel .priority-dot {
+  width: 16px;
+  height: 16px;
+}
+
+.recurring-freq-select,
+.recurring-day-select {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+  outline: none;
+}
+
+.recurring-add-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #007aff, #5856d6);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-left: auto;
+}
+
+.recurring-add-btn:hover {
+  opacity: 0.9;
+}
+
+.recurring-add-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
